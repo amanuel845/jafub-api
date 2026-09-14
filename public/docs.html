@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080b10">
+<title>GitHub API Playground — Documentation</title>
+<style>
+:root{--bg:#080b10;--panel:#0e131b;--panel2:#121925;--line:#273243;--text:#eef2f7;--muted:#8d99aa;--green:#7ee787;--blue:#79c0ff;--yellow:#e3b341;--red:#ff7b72;--purple:#d2a8ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(900px 450px at 75% -10%,#1b352733,transparent),var(--bg);color:var(--text);font:14px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:10;background:#080b10e8;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+.top{max-width:1180px;margin:auto;display:flex;align-items:center;gap:10px;padding:11px 16px}
+.logo{font-weight:850;letter-spacing:-.02em}.version{font-size:10px;color:var(--green);border:1px solid #315c3b;border-radius:999px;padding:3px 7px}
+.sp{flex:1}.search{width:190px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);outline:none}
+.layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:205px minmax(0,1fr);gap:28px;padding:25px 16px 70px}
+aside{position:sticky;top:64px;height:calc(100vh - 88px);overflow:auto}
+aside .label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.1em;margin:12px 8px 5px}
+aside a{display:block;color:var(--muted);padding:5px 8px;border-radius:7px;font-size:12px}
+aside a:hover{background:var(--panel);color:var(--text);text-decoration:none}
+main{min-width:0}.eyebrow{font-size:10px;color:var(--green);font-weight:850;letter-spacing:.13em}
+h1{font-size:44px;line-height:1.04;letter-spacing:-.045em;margin:7px 0 10px}
+h2{font-size:23px;letter-spacing:-.02em;margin:38px 0 10px}
+h3{font-size:16px;margin:25px 0 7px}
+.lead{font-size:17px;color:#b9c4d4;max-width:800px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.card{background:linear-gradient(145deg,var(--panel),#0b1017);border:1px solid var(--line);border-radius:13px;padding:13px}
+.card b{font-size:13px}.card p{color:var(--muted);margin:5px 0 0;font-size:12px}
+.call{border:1px solid #31523a;border-left:3px solid var(--green);background:#0d1711;padding:10px 13px;border-radius:8px;margin:12px 0}
+.warn{border-color:#55451f;border-left-color:var(--yellow);background:#18140a}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:12px}
+th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#151d2a;border:1px solid var(--line);padding:1px 5px;border-radius:5px;font-size:.9em}
+pre{background:#090d14;border:1px solid var(--line);padding:13px;border-radius:10px;overflow:auto;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted);font-size:11px;margin:2px}
+.endpoint{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.method{font-weight:800;font-size:10px}.GET{color:var(--green)}.POST{color:var(--blue)}.PUT,.PATCH{color:var(--yellow)}.DELETE{color:var(--red)}
+small{color:var(--muted)}
+.hidden{display:none!important}
+footer{margin-top:42px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+@media(max-width:780px){
+ .layout{grid-template-columns:1fr;padding-top:14px}
+ aside{position:relative;top:auto;height:auto;display:flex;gap:4px;overflow:auto;padding-bottom:9px;border-bottom:1px solid var(--line)}
+ aside .label{display:none}aside a{white-space:nowrap}
+ .grid{grid-template-columns:1fr}h1{font-size:34px}.search{width:135px}
+}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo">◉ GitHub API Playground</div><span class="version">V2 DOCS</span><div class="sp"></div><input id="search" class="search" placeholder="Filter documentation…"></div></header>
+<div class="layout">
+<aside>
+<div class="label">GUIDE</div>
+<a href="#overview">Overview</a><a href="#quickstart">Quick start</a><a href="#features">Features</a><a href="#architecture">Architecture</a>
+<div class="label">API</div>
+<a href="#rest">REST proxy</a><a href="#graphql">GraphQL</a><a href="#catalog">Endpoint catalog</a><a href="#headers">Headers</a><a href="#ratelimits">Rate limits</a>
+<div class="label">SECURITY</div>
+<a href="#auth">Authentication</a><a href="#security">Security</a>
+<div class="label">DEPLOYMENT</div>
+<a href="#deploy">Vercel</a><a href="#files">Project files</a><a href="#config">Configuration</a>
+</aside>
+
+<main>
+<section id="overview">
+<div class="eyebrow">GITHUB API LABORATORY</div>
+<h1>GitHub API Playground</h1>
+<p class="lead">A compact, interactive GitHub REST + GraphQL explorer designed to run as a Vercel serverless application. Test authenticated and public GitHub API operations without exposing direct browser-to-GitHub routing.</p>
+<p><span class="pill">REST</span><span class="pill">GraphQL</span><span class="pill">Vercel</span><span class="pill">Node 20</span><span class="pill">Fine-grained PAT</span><span class="pill">Rate telemetry</span><span class="pill">Mobile responsive</span></p>
+</section>
+
+<section id="quickstart"><h2>Quick start</h2>
+<ol>
+<li>Create a new GitHub repository and upload the project.</li>
+<li>Import the repository into Vercel.</li>
+<li>Deploy using the included Node 20 configuration.</li>
+<li>Open the playground and optionally select <b>Auth</b> to enter a GitHub fine-grained personal access token.</li>
+<li>Select an endpoint or type a custom path, then press <b>Send</b>.</li>
+</ol>
+<div class="call"><b>Local development:</b> install dependencies, then run <code>npm run dev</code> with the Vercel CLI.</div>
+</section>
+
+<section id="features"><h2>Features</h2>
+<div class="grid">
+<div class="card"><b>REST Explorer</b><p>GET, POST, PUT, PATCH and DELETE against arbitrary GitHub REST paths.</p></div>
+<div class="card"><b>GraphQL Explorer</b><p>Run GraphQL queries with JSON variables and inspect responses.</p></div>
+<div class="card"><b>Authentication</b><p>Fine-grained PAT entry with browser-side persistence and clear controls.</p></div>
+<div class="card"><b>Rate & Usage</b><p>Shows observed limit, remaining, used and resource values from GitHub headers.</p></div>
+<div class="card"><b>Request History</b><p>Recent request method, path, status and latency are retained for the current session.</p></div>
+<div class="card"><b>Developer tools</b><p>JSON formatting, raw/pretty responses, copy actions and cURL generation.</p></div>
+<div class="card"><b>Endpoint catalog</b><p>Core, repositories, issues/PRs, search, organizations, Actions, gists, Git data, packages and security.</p></div>
+<div class="card"><b>Custom paths</b><p>The REST path field can call endpoints that are not included in the preset catalog.</p></div>
+<div class="card"><b>Mobile UI</b><p>Compact tabs and responsive layouts for phone and desktop browsers.</p></div>
+</div></section>
+
+<section id="architecture"><h2>Architecture</h2>
+<p>The application uses a browser frontend and Vercel serverless proxy functions:</p>
+<pre>Browser
+  │
+  ├── /api/github/&lt;path&gt; ──► GitHub REST API
+  │
+  └── /api/graphql ─────────► GitHub GraphQL API
+          │
+          ▼
+      GitHub response
+          │
+          ▼
+     Playground UI</pre>
+<p>The proxy is responsible for forwarding authentication and GitHub API headers while allowing the frontend to use same-origin <code>/api/…</code> routes.</p>
+</section>
+
+<section id="rest"><h2>REST proxy</h2>
+<p>The REST proxy uses the Vercel catch-all route <code>api/github/[...path].js</code>. A request such as:</p>
+<pre>GET /api/github/repos/OWNER/REPO/issues?state=open</pre>
+<p>is forwarded to:</p>
+<pre>GET https://api.github.com/repos/OWNER/REPO/issues?state=open</pre>
+<table><tr><th>HTTP method</th><th>Supported</th><th>Typical use</th></tr>
+<tr><td class="method GET">GET</td><td>✓</td><td>Read, list and search resources.</td></tr>
+<tr><td class="method POST">POST</td><td>✓</td><td>Create resources or trigger actions.</td></tr>
+<tr><td class="method PUT">PUT</td><td>✓</td><td>Replace/update operations requiring PUT.</td></tr>
+<tr><td class="method PATCH">PATCH</td><td>✓</td><td>Partial resource updates.</td></tr>
+<tr><td class="method DELETE">DELETE</td><td>✓</td><td>Delete supported resources.</td></tr>
+</table>
+<h3>Request body</h3>
+<p>For POST, PUT and PATCH, enter JSON in the request editor. The playground validates/serializes JSON before sending it through the proxy.</p>
+<h3>Custom paths</h3>
+<p>The path box accepts any GitHub REST path beginning with <code>/</code>. Query strings are preserved, so endpoints outside the visible catalog remain testable.</p>
+</section>
+
+<section id="graphql"><h2>GraphQL</h2>
+<p>The GraphQL proxy is <code>POST /api/graphql</code>. It accepts a query, variables object and optional operation name.</p>
+<pre>{
+  "query": "query Viewer { viewer { login name } }",
+  "variables": {},
+  "operationName": "Viewer"
+}</pre>
+<p>The request is forwarded to <code>https://api.github.com/graphql</code>. The playground displays the returned GraphQL JSON and HTTP status/latency.</p>
+</section>
+
+<section id="catalog"><h2>Endpoint catalog</h2>
+<p>The built-in catalog provides representative operations across these GitHub API areas:</p>
+<table>
+<tr><th>Group</th><th>Examples</th></tr>
+<tr><td>Core</td><td><code>/</code>, <code>/user</code>, <code>/rate_limit</code>, public users, user repositories.</td></tr>
+<tr><td>Repositories</td><td>Repository details, branches, commits, contents, releases, tags, collaborators, contributors, deployments, environments and webhooks.</td></tr>
+<tr><td>Issues & PRs</td><td>List/create/update issues, list/update pull requests, PR files and commits.</td></tr>
+<tr><td>Search</td><td>Repository, code, issue, user and commit searches.</td></tr>
+<tr><td>Organizations</td><td>User organizations, organization details, repositories, members and teams.</td></tr>
+<tr><td>Actions</td><td>Workflow runs, workflows, artifacts and workflow dispatch.</td></tr>
+<tr><td>Gists & Notifications</td><td>Own/public gists, individual gists and notifications.</td></tr>
+<tr><td>Git Data</td><td>Refs, trees, commits and blobs.</td></tr>
+<tr><td>Packages & Security</td><td>Packages, vulnerability alerts, code scanning and secret scanning alerts.</td></tr>
+</table>
+<p class="muted">The catalog is a convenience layer, not a claim that it contains every GitHub endpoint. Use the custom path field for additional REST operations.</p>
+</section>
+
+<section id="headers"><h2>Headers & response metadata</h2>
+<p>The proxy forwards GitHub-oriented request headers and exposes common response metadata to the browser.</p>
+<table><tr><th>Header</th><th>Purpose</th></tr>
+<tr><td><code>Accept</code></td><td>Uses GitHub's JSON media type by default.</td></tr>
+<tr><td><code>X-GitHub-Api-Version</code></td><td>Defaults to <code>2022-11-28</code>.</td></tr>
+<tr><td><code>Authorization</code></td><td>Forwards the browser's Bearer token when authentication is configured.</td></tr>
+<tr><td><code>x-ratelimit-limit</code></td><td>Observed request limit.</td></tr>
+<tr><td><code>x-ratelimit-remaining</code></td><td>Observed remaining requests for the returned resource bucket.</td></tr>
+<tr><td><code>x-ratelimit-used</code></td><td>Observed usage.</td></tr>
+<tr><td><code>x-ratelimit-resource</code></td><td>Identifies the GitHub rate-limit resource.</td></tr>
+<tr><td><code>x-ratelimit-reset</code></td><td>Reset timestamp supplied by GitHub.</td></tr>
+<tr><td><code>x-github-request-id</code></td><td>GitHub request identifier useful for debugging.</td></tr>
+<tr><td><code>etag</code></td><td>Cache/entity identifier when GitHub supplies one.</td></tr>
+<tr><td><code>link</code></td><td>Pagination/navigation links when supplied.</td></tr>
+<tr><td><code>retry-after</code></td><td>Retry timing information when supplied.</td></tr>
+<tr><td><code>deprecation</code>, <code>sunset</code></td><td>Deprecation metadata when returned.</td></tr>
+</table>
+</section>
+
+<section id="ratelimits"><h2>Rate limits & usage</h2>
+<p>The <b>Rate & Usage</b> tab displays values observed directly from GitHub response headers. It does not invent a universal quota number because GitHub can expose different limits for different resource buckets and authentication states.</p>
+<div class="call warn"><b>Important:</b> the session request counter is a playground metric. It is not the same thing as GitHub's remaining quota.</div>
+</section>
+
+<section id="auth"><h2>Authentication</h2>
+<p>The playground supports a GitHub fine-grained personal access token (PAT). When saved, the browser sends it as:</p>
+<pre>Authorization: Bearer github_pat_…</pre>
+<p>Use a token with only the repository/account permissions required for the operations you are testing.</p>
+<h3>Public vs authenticated requests</h3>
+<p>Without a token, requests use GitHub's public/unauthenticated access rules. With a token, GitHub evaluates the token's permissions and authenticated rate limits.</p>
+</section>
+
+<section id="security"><h2>Security</h2>
+<div class="call warn"><b>Browser storage warning:</b> the playground stores the entered PAT in <code>localStorage</code> for convenience. Any JavaScript running in the same origin can potentially access localStorage. This is suitable for a personal developer playground, not a hardened secret-management system.</div>
+<ul>
+<li>Never commit a PAT to GitHub.</li>
+<li>Use the minimum token permissions required.</li>
+<li>Set an appropriate token expiration.</li>
+<li>Clear the token from the Auth dialog when finished.</li>
+<li>For a public-facing deployment, consider adding application authentication and restrictive CORS.</li>
+<li>For stronger secret handling, move credentials to Vercel environment variables and keep privileged calls server-side.</li>
+</ul>
+</section>
+
+<section id="deploy"><h2>Vercel deployment</h2>
+<ol>
+<li>Create a new GitHub repository.</li>
+<li>Upload/push the playground files.</li>
+<li>Import the repository into Vercel.</li>
+<li>Use Node 20.x.</li>
+<li>Deploy. No separate frontend build step is required because the UI is static HTML.</li>
+</ol>
+<h3>Local commands</h3>
+<pre>npm install
+npm run dev</pre>
+<p>The project includes Vercel configuration files so the API functions are deployed as serverless functions.</p>
+</section>
+
+<section id="files"><h2>Project files</h2>
+<table><tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>public/index.html</code></td><td>Main interactive REST, GraphQL, rate and history interface.</td></tr>
+<tr><td><code>public/docs.html</code></td><td>Copy of this compact documentation page, suitable for serving as a public static page.</td></tr>
+<tr><td><code>docs.html</code></td><td>Standalone documentation file included at the project root.</td></tr>
+<tr><td><code>api/github/[...path].js</code></td><td>Vercel catch-all GitHub REST proxy.</td></tr>
+<tr><td><code>api/graphql.js</code></td><td>Vercel GitHub GraphQL proxy.</td></tr>
+<tr><td><code>api/meta.js</code></td><td>Small GitHub metadata helper endpoint.</td></tr>
+<tr><td><code>package.json</code></td><td>Project metadata, Node version and development script.</td></tr>
+<tr><td><code>vercel.json</code></td><td>Vercel function/runtime configuration.</td></tr>
+<tr><td><code>vercel.js</code></td><td>Included Vercel configuration reference.</td></tr>
+<tr><td><code>.env.example</code></td><td>Optional environment-variable template.</td></tr>
+<tr><td><code>.gitignore</code></td><td>Prevents common local/secrets/build files from being committed.</td></tr>
+<tr><td><code>README.md</code></td><td>Project setup, deployment, authentication and architecture notes.</td></tr>
+</table>
+</section>
+
+<section id="config"><h2>Configuration</h2>
+<p>The included project targets Node <code>20.x</code>. The REST function is configured for a longer serverless execution window than the metadata helper, while the frontend remains a static HTML application.</p>
+<pre>{
+  "version": 2,
+  "functions": {
+    "api/github/[...path].js": {
+      "maxDuration": 60,
+      "memory": 512
+    },
+    "api/graphql.js": {
+      "maxDuration": 60,
+      "memory": 512
+    }
+  }
+}</pre>
+<p>The application does not require a build framework; Vercel serves the static frontend and executes the files under <code>api/</code> as serverless functions.</p>
+</section>
+
+<footer>GitHub API Playground V2 · compact standalone documentation · Built for Vercel deployment</footer>
+</main></div>
+<script>
+const input=document.getElementById("search");
+input.addEventListener("input",()=>{
+ const q=input.value.trim().toLowerCase();
+ document.querySelectorAll("main section").forEach(s=>{
+   s.classList.toggle("hidden",!!q && !s.innerText.toLowerCase().includes(q));
+ });
+});
+</script>
+</body>
+</html>
